@@ -1,39 +1,142 @@
 # Ruby::Better::Webtesting
 
-TODO: Delete this and the text below, and describe your gem
+# ruby-better-webtesting
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby/better/webtesting`. To experiment with that code, run `bin/console` for an interactive prompt.
+**1. Project Structure:**
 
-## Installation
+Create the following directory structure:
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+```
+web_testing_project
+|-- Gemfile
+|-- Rakefile
+|-- lib
+|   |-- tests
+|       |-- checkboxes_test.rb
+|       |-- disappearing_elements_test.rb
+|       |-- hovers_link_test.rb
+|-- spec_helper.rb
+|-- .gitignore
+```
 
-Install the gem and add to the application's Gemfile by executing:
+**2. Gemfile:**
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+# Gemfile
+source 'https://rubygems.org'
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+gem 'selenium-webdriver'
+gem 'minitest'
+gem 'rake'
+```
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+Run `bundle install` in the terminal to install the required gems.
 
-## Usage
+**3. spec_helper.rb:**
 
-TODO: Write usage instructions here
+```ruby
+# spec_helper.rb
+require 'selenium-webdriver'
+require 'minitest/autorun'
 
-## Development
+class BaseTest < Minitest::Test
+  def setup
+    @driver = Selenium::WebDriver.for :chrome
+    @driver.navigate.to 'https://the-internet.herokuapp.com/'
+  end
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+  def teardown
+    @driver.quit
+  end
+end
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+**4. checkboxes_test.rb:**
 
-## Contributing
+```ruby
+# lib/tests/checkboxes_test.rb
+require_relative '../spec_helper'
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ruby-better-webtesting. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/ruby-better-webtesting/blob/master/CODE_OF_CONDUCT.md).
+class CheckboxesTest < BaseTest
+  def test_toggle_checkboxes
+    checkboxes_link = @driver.find_element(link_text: 'Checkboxes')
+    checkboxes_link.click
 
-## License
+    checkboxes = @driver.find_elements(css: 'input[type="checkbox"]')
+    initial_states = checkboxes.map(&:selected?)
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+    checkboxes.each(&:click)
 
-## Code of Conduct
+    final_states = checkboxes.map(&:selected?)
 
-Everyone interacting in the Ruby::Better::Webtesting project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/ruby-better-webtesting/blob/master/CODE_OF_CONDUCT.md).
+    refute_equal initial_states, final_states, 'Checkbox states did not toggle'
+  end
+end
+```
+
+**5. disappearing_elements_test.rb:**
+
+```ruby
+# lib/tests/disappearing_elements_test.rb
+require_relative '../spec_helper'
+
+class DisappearingElementsTest < BaseTest
+  def test_disappearing_elements
+    disappearing_elements_link = @driver.find_element(link_text: 'Disappearing Elements')
+    disappearing_elements_link.click
+
+    initial_elements_count = @driver.find_elements(css: '.example li').count
+
+    loop do
+      @driver.navigate.refresh
+      break if @driver.find_elements(css: '.example li').count != initial_elements_count
+    end
+
+    final_elements_count = @driver.find_elements(css: '.example li').count
+
+    refute_equal initial_elements_count, final_elements_count, 'Element count did not change'
+  end
+end
+```
+
+**6. hovers_link_test.rb:**
+
+```ruby
+# lib/tests/hovers_link_test.rb
+require_relative '../spec_helper'
+
+class HoversLinkTest < BaseTest
+  def test_hover_text_not_empty
+    hovers_link = @driver.find_element(link_text: 'Hovers')
+    hovers_link.click
+
+    figures = @driver.find_elements(css: '.figure')
+    random_figure = figures.sample
+
+    @driver.action.move_to(random_figure).perform
+
+    hover_text = random_figure.find_element(css: '.figcaption').text
+
+    refute_empty hover_text, 'Hover text is empty'
+  end
+end
+```
+
+**7. Rakefile:**
+
+```ruby
+# Rakefile
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
+  t.libs << 'lib'
+  t.test_files = FileList['lib/tests/*.rb']
+  t.verbose = true
+end
+```
+
+**8. Run the Tests:**
+
+Execute `rake` in the terminal to run all tests.
+
+This project includes tests for the specified scenarios and utilizes Rake for automation. The tests are structured to cover the requested functionality on the provided homepage.

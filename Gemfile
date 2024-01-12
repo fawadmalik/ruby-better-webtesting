@@ -1,12 +1,6 @@
-# frozen_string_literal: true
+# Gemfile
+source 'https://rubygems.org'
 
-source "https://rubygems.org"
-
-# Specify your gem's dependencies in ruby-better-webtesting.gemspec
-gemspec
-
-gem "rake", "~> 13.0"
-
-gem "minitest", "~> 5.16"
-
-gem "standard", "~> 1.3"
+gem 'selenium-webdriver'
+gem 'minitest'
+gem 'rake'

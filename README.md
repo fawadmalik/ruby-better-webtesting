@@ -140,3 +140,8 @@ end
 Execute `rake` in the terminal to run all tests.
 
 This project includes tests for the specified scenarios and utilizes Rake for automation. The tests are structured to cover the requested functionality on the provided homepage.
+
+Note: First you have to run this code from the project root directory
+```bash
+bundle install
+```

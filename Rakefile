@@ -1,10 +1,8 @@
-# frozen_string_literal: true
+# Rakefile
+require 'rake/testtask'
 
-require "bundler/gem_tasks"
-require "minitest/test_task"
-
-Minitest::TestTask.create
-
-require "standard/rake"
-
-task default: %i[test standard]
+Rake::TestTask.new do |webTask|
+  webTask.libs << 'lib'
+  webTask.test_files = FileList['lib/tests/*.rb']
+  webTask.verbose = true
+end

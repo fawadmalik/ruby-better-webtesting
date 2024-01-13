@@ -1,6 +1,5 @@
-# frozen_string_literal: true
+require 'minitest/autorun'
+require 'minitest/reporters'
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "ruby/better/webtesting"
-
-require "minitest/autorun"
+html_reporter = Minitest::Reporters::HtmlReporter.new
+Minitest::Reporters.use! [html_reporter]

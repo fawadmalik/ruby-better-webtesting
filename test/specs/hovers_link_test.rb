@@ -1,5 +1,5 @@
-# lib/tests/hovers_link_test.rb
-require_relative '../spec_helper'
+# test/spec/hovers_link_test.rb
+require_relative '../../spec_helper'
 
 class HoversLinkTest < BaseTest
   def test_hover_text_not_empty

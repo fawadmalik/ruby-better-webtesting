@@ -1,5 +1,5 @@
-# lib/tests/disappearing_elements_test.rb
-require_relative '../spec_helper'
+# test/spec/disappearing_elements_test.rb
+require_relative '../../spec_helper'
 
 class DisappearingElementsTest < BaseTest
   def test_disappearing_elements

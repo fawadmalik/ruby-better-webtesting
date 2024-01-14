@@ -38,6 +38,7 @@ Run `bundle install` in the terminal to install the required gems.
 # spec_helper.rb
 require 'selenium-webdriver'
 require 'minitest/autorun'
+require 'test/test_helper.rb'
 
 class BaseTest < Minitest::Test
   def setup

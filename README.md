@@ -10,8 +10,9 @@ Create the following directory structure:
 web_testing_project
 |-- Gemfile
 |-- Rakefile
-|-- lib
-|   |-- tests
+|-- tests
+|   test_helper.rb
+|   |-- specs
 |       |-- checkboxes_test.rb
 |       |-- disappearing_elements_test.rb
 |       |-- hovers_link_test.rb

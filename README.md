@@ -11,12 +11,12 @@ web_testing_project
 |-- Gemfile
 |-- Rakefile
 |-- test
-|   test_helper.rb
+|   |-- test_helper.rb
 |   |-- specs
+|       |-- spec_helper.rb
 |       |-- checkboxes_test.rb
 |       |-- disappearing_elements_test.rb
 |       |-- hovers_link_test.rb
-|-- spec_helper.rb
 |-- .gitignore
 ```
 

@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -15,17 +15,14 @@ jobs:
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@1
+
         with:
           ruby-version: $(cat .ruby-version)
 
-      - name: Install Bundler
+      - name: Install Dependencies
         run: |
           gem install bundler
           bundle install
-
-      - name: Set up ChromeDriver
-        run: |
-          choco install chromedriver --version=120.0.6099.217  --yes --no-progress
 
       - name: Run Tests through rake's default task
         run: bundle exec rake test

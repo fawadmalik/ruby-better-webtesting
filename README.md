@@ -10,8 +10,9 @@ Create the following directory structure:
 web_testing_project
 |-- Gemfile
 |-- Rakefile
-|-- lib
-|   |-- tests
+|-- test
+|   test_helper.rb
+|   |-- specs
 |       |-- checkboxes_test.rb
 |       |-- disappearing_elements_test.rb
 |       |-- hovers_link_test.rb
@@ -38,6 +39,7 @@ Run `bundle install` in the terminal to install the required gems.
 # spec_helper.rb
 require 'selenium-webdriver'
 require 'minitest/autorun'
+require 'test/test_helper.rb'
 
 class BaseTest < Minitest::Test
   def setup

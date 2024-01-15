@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: actions/setup-ruby@v2
         with:
-          $(cat .ruby-version)
+          ruby-version: $(cat .ruby-version)
 
       - name: Install Bundler
         run: |

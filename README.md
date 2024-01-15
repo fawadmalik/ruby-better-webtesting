@@ -124,16 +124,32 @@ class HoversLinkTest < BaseTest
 end
 ```
 
-**7. Rakefile:**
+**7. test_helper.rb**
+
+```ruby
+# test/test_helper.rb
+
+require 'minitest/autorun'
+require 'minitest/reporters'
+
+html_reporter = Minitest::Reporters::HtmlReporter.new
+Minitest::Reporters.use! [html_reporter]
+```
+
+**8. Rakefile:**
 
 ```ruby
 # Rakefile
+
 require 'rake/testtask'
 
-Rake::TestTask.new do |t|
-  t.libs << 'lib'
-  t.test_files = FileList['lib/tests/*.rb']
-  t.verbose = true
+task default: [:test]
+
+Rake::TestTask.new do |webtesttask|
+  webtesttask.libs << 'test'
+  webtesttask.pattern = 'test/specs/**/*_test.rb'
+  webtesttask.verbose = true
+  webtesttask.warning = true
 end
 ```
 

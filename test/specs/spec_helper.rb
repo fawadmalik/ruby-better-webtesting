@@ -1,4 +1,4 @@
-# spec_helper.rb
+# test/specs/spec_helper.rb
 require 'selenium-webdriver'
 require 'minitest/autorun'
 require_relative '../test_helper'

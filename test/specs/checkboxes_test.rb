@@ -1,5 +1,5 @@
 # test/spec/checkboxes_test.rb
-require_relative '../../spec_helper'
+require_relative '../../elper'
 
 class CheckboxesTest < BaseTest
   def test_toggle_checkboxes

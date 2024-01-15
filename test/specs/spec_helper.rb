@@ -1,7 +1,7 @@
 # spec_helper.rb
 require 'selenium-webdriver'
 require 'minitest/autorun'
-require_relative 'test/test_helper'
+require_relative '../test_helper'
 
 class BaseTest < Minitest::Test
   def setup

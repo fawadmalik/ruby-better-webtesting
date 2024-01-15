@@ -1,5 +1,5 @@
 # test/spec/hovers_link_test.rb
-require_relative '../../spec_helper'
+require_relative '../../elper'
 
 class HoversLinkTest < BaseTest
   def test_hover_text_not_empty

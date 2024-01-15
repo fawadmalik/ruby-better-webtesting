@@ -1,27 +1,31 @@
-name: Ruby
+name: Web Testing CI
 
 on:
   push:
     branches:
-      - master
-
-  pull_request:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
-    strategy:
-      matrix:
-        ruby:
-          - '3.2.2'
+  test:
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v2
+        with:
+          $(cat .ruby-version)
+
+      - name: Install Bundler
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Set up ChromeDriver
+        run: |
+          choco install chromedriver --version=120.0.6099.217  --yes --no-progress
+
+      - name: Run Tests through rake's default task
+        run: bundle exec rake test

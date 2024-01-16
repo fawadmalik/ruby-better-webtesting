@@ -5,7 +5,9 @@ require_relative '../test_helper'
 
 class BaseTest < Minitest::Test
   def setup
-    @driver = Selenium::WebDriver.for :chrome
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless')
+    @driver = Selenium::WebDriver.for :chrome, options: options
     @driver.navigate.to 'https://the-internet.herokuapp.com/'
   end
 

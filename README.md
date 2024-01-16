@@ -1,4 +1,4 @@
-# Ruby::Better::Webtesting
+[![Ruby](https://github.com/fawadmalik/ruby-better-webtesting/actions/workflows/main.yml/badge.svg)](https://github.com/fawadmalik/ruby-better-webtesting/actions/workflows/main.yml)
 
 # ruby-better-webtesting
 

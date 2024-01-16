@@ -54,11 +54,11 @@ jobs:
 
     steps:
       - name: Download Minitest Reports
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.1
         with:
           name: minitest-reports
-          path: test/reports-html # Change this to the same path used in the upload step
+          path: test/html_reports # Change this to the same path used in the upload step
 
       - name: View Minitest Reports
         run: |
-          cat test/reports_html/*.html
+          cat test/html_reports/*.html

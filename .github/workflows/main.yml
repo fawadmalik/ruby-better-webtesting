@@ -21,6 +21,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      # This will be a folder in the project root directory. add sub directories as you see fit
+      MINITEST_HTML_REPORTS_DIR: 'html_reports'
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -45,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v4.1.0
         with:
           name: minitest-reports
-          path: test/html_reports # Change this to the directory where Minitest reports are generated
+          path: ${{ env.MINITEST_HTML_REPORTS_DIR }}

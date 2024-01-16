@@ -21,16 +21,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    services:
-      - name: selenium_hub
-
-          options: >-
-            -p 4444:4444
-      - name: selenium/node-chrome
-
-        options: >-
-          --link selenium/hub:hub
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

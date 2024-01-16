@@ -40,3 +40,9 @@ jobs:
 
       - name: Run Tests through rake's default task
         run: bundle exec rake test
+
+      - name: Upload Minitest Reports
+        uses: actions/upload-artifact@v4.1.0
+        with:
+          name: minitest-reports
+          path: test/html_reports # Change this to the directory where Minitest reports are generated

@@ -46,3 +46,19 @@ jobs:
         with:
           name: minitest-reports
           path: test/html_reports # Change this to the directory where Minitest reports are generated
+
+
+  view-reports:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Minitest Reports
+        uses: actions/download-artifact@v2
+        with:
+          name: minitest-reports
+          path: test/reports-html # Change this to the same path used in the upload step
+
+      - name: View Minitest Reports
+        run: |
+          cat test/reports_html/*.html

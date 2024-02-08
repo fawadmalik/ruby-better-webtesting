@@ -2,9 +2,9 @@
 
 require 'rake/testtask'
 
-task default: [:test]
+task default: [:testAll]
 
-Rake::TestTask.new do |webtesttask|
+Rake::TestTask.new(:testAll) do |webtesttask|
   webtesttask.libs << 'test'
   webtesttask.pattern = 'test/specs/**/*_test.rb'
   webtesttask.verbose = true
